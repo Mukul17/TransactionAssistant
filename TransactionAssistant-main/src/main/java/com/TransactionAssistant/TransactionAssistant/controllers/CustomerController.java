@@ -23,7 +23,7 @@ public class CustomerController {
     }
 
     @GetMapping("/data")
-    public List<CustomerData> getCustomersDataviaPage(@RequestParam int pageNo, @RequestParam  int pageSize ){
+    public List<CustomerData> getCustomersDataviaPage(@RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10")  int pageSize ){
         return customerService.getAllCustomersDataViaPageable(pageNo,pageSize);
     }
 
