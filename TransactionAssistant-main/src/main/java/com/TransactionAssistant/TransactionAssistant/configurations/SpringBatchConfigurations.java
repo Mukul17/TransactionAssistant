@@ -37,9 +37,8 @@ public class SpringBatchConfigurations {
                 = new JpaPagingItemReader<>();
         jpaPagingItemReader.setEntityManagerFactory(entityManagerFactory);
         jpaPagingItemReader.setQueryString("SELECT c FROM CustomerData c");
-        jpaPagingItemReader.setPageSize(200);
+        jpaPagingItemReader.setPageSize(25000);
         return jpaPagingItemReader;
-        //return  new JpaPagingItemReader<>();
     }
 
 
@@ -48,7 +47,7 @@ public class SpringBatchConfigurations {
     public ItemWriter<CustomerData> customerDataItemWriter(){
         return items->{
             for (CustomerData customerData:items){
-                System.out.println("Processed Customer Data "+customerData.getName());
+               // System.out.println("Processed Customer Data "+customerData.getName());
             }
         };
     }
@@ -62,7 +61,7 @@ public class SpringBatchConfigurations {
                              ItemWriter<CustomerData>customerDataItemWriter
                              ){
         return new StepBuilder("Customer Step",jobRepository)
-                .<CustomerData, CustomerData>chunk(200,platformTransactionManager)
+                .<CustomerData, CustomerData>chunk(25000,platformTransactionManager)
                 .reader(customerDataJpaPagingItemReader)
                 .processor(customerDataCustomerDataItemProcessor)
                 .writer(customerDataItemWriter)
