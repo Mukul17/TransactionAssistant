@@ -6,6 +6,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Show system info
+      run: uname -a && lsb_release -a
     - name: Print Greeting
       run: echo "Hello World"
     - name: Print GoodBye
